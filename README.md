@@ -24,18 +24,17 @@ In its simplest form, create a standalone state machine using:
 
 ... will create an object with a method for each event:
 
- * fsm.warn()  - transition from 'green' to 'yellow'
- * fsm.panic() - transition from 'yellow' to 'red'
- * fsm.calm()  - transition from 'red' to 'yellow'
- * fsm.clear() - transition from 'yellow' to 'green'
+ * fsm:warn()  - transition from 'green' to 'yellow'
+ * fsm:panic() - transition from 'yellow' to 'red'
+ * fsm:calm()  - transition from 'red' to 'yellow'
+ * fsm:clear() - transition from 'yellow' to 'green'
 
 along with the following members:
 
  * fsm.current       - contains the current state
- * fsm.is(s)         - return true if state `s` is the current state
- * fsm.can(e)        - return true if event `e` can be fired in the current state
- * fsm.cannot(e)     - return true if event `e` cannot be fired in the current state
- * fsm.transitions() - return list of events that are allowed from the current state
+ * fsm:is(s)         - return true if state `s` is the current state
+ * fsm:can(e)        - return true if event `e` can be fired in the current state
+ * fsm:cannot(e)     - return true if event `e` cannot be fired in the current state
 
 Multiple 'from' and 'to' states for a single event
 ==================================================
@@ -58,8 +57,8 @@ the same name:
 
 This example will create an object with 2 event methods:
 
- * fsm.eat()
- * fsm.rest()
+ * fsm:eat()
+ * fsm:rest()
 
 The `rest` event will always transition to the `hungry` state, while the `eat` event
 will transition to a state that is dependent on the current state.
@@ -81,11 +80,6 @@ Callbacks
  * `onafterEVENT`  - fired after the event
 
 >> (using your **specific** EVENT and STATE names)
-
-For convenience, the 2 most useful callbacks can be shortened:
-
- * `onEVENT` - convenience shorthand for `onafterEVENT`
- * `onSTATE` - convenience shorthand for `onenterSTATE`
 
 In addition, 4 general-purpose callbacks can be used to capture **all** event and state changes:
 
@@ -114,14 +108,14 @@ Callbacks can be specified when the state machine is first created:
       callbacks = {
         onpanic =  function(event, from, to, msg) print('panic! ' .. msg)    end,
         onclear =  function(event, from, to, msg) print('thanks to ' .. msg) end,
-        ongreen =  function(event, from, to)      print('green')            end,
-        onyellow = function(event, from, to)      print('yellow')           end,
-        onred =    function(event, from, to)      print('red')              end,
+        ongreen =  function(event, from, to)      print('green')             end,
+        onyellow = function(event, from, to)      print('yellow')            end,
+        onred =    function(event, from, to)      print('red')               end,
       }
     })
 
-    fsm.panic('killer bees')
-    fsm.clear('sedatives in the honey pots')
+    fsm:panic('killer bees')
+    fsm:clear('sedatives in the honey pots')
     ...
 
 Additionally, they can be added and removed from the state machine at any time:
